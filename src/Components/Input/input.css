@@ -1,0 +1,28 @@
+.inputWrapper {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.inputField {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.inputError {
+    border-color: red;
+}
+
+.inputIcon {
+    position: relative;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+.errorText{
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+}
