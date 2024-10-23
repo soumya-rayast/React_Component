@@ -3,6 +3,7 @@ import './App.css';
 import Button from './Components/Button/Button';
 import Input from './Components/Input/Input';
 import Toast from './Components/Toast/Toast';
+import Dropdown from './Components/DropDown/Dropdown';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -50,6 +51,9 @@ function App() {
     setToast(null)
   }
 
+  //  Custom Searchable Dropdown in React with Click-Outside Feature
+  const [selectedOption,setSelectedOption] = useState(null);
+  const options = ['react','nextjs','css']
   return (
     <>
       <div className="App">
@@ -113,6 +117,17 @@ function App() {
           }
         </div>
 
+        {/* Custom Searchable Dropdown in React with Click-Outside Feature */}
+        <h1>Custom Searchable Dropdown in React with Click-Outside Feature</h1>
+        <div >
+          <Dropdown
+          options={options}
+          selected={selectedOption}
+          onChange={setSelectedOption}
+          placeholder='Choose framework'
+          />
+          {selectedOption && <p>You Selected:{selectedOption}</p>}
+        </div>
       </div>
     </>
   );
