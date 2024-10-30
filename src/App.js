@@ -4,6 +4,7 @@ import Button from './Components/Button/Button';
 import Input from './Components/Input/Input';
 import Toast from './Components/Toast/Toast';
 import Dropdown from './Components/DropDown/Dropdown';
+import Tab from './Components/Tab/Tab';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -52,8 +53,29 @@ function App() {
   }
 
   //  Custom Searchable Dropdown in React with Click-Outside Feature
-  const [selectedOption,setSelectedOption] = useState(null);
-  const options = ['react','nextjs','css']
+  const [selectedOption, setSelectedOption] = useState(null);
+  const options = ['react', 'nextjs', 'css']
+
+
+  // - **Build a Reusable Fully Dynamic tabs Component**
+
+  const tabsData = [
+    {
+      label: "Home",
+      content: <p>This is home tab content</p>,
+      icon: "ho"
+    },
+    {
+      label: "Profile",
+      content: <p>This is profile tab content</p>,
+      icon: "pro"
+    },
+    {
+      label: "About",
+      content: <p>This is about tab content</p>,
+      icon: "ab"
+    }
+  ]
   return (
     <>
       <div className="App">
@@ -96,22 +118,22 @@ function App() {
         <div>
           <div className="buttonFlex">
             <Button label='info'
-            variant="primary"
-            onClick={()=>showToast("info toast",'info')}
+              variant="primary"
+              onClick={() => showToast("info toast", 'info')}
             />
-            <Button 
-            label="error"
-            variant="secondary"
-            onClick={()=>showToast("error toast","error")}
+            <Button
+              label="error"
+              variant="secondary"
+              onClick={() => showToast("error toast", "error")}
             />
           </div>
           {
             toast && (
-              <Toast  
-              message={toast.message}
-              type={toast.type}
-              duration={3000}
-              onClose={removeToast}
+              <Toast
+                message={toast.message}
+                type={toast.type}
+                duration={3000}
+                onClose={removeToast}
               />
             )
           }
@@ -121,12 +143,26 @@ function App() {
         <h1>Custom Searchable Dropdown in React with Click-Outside Feature</h1>
         <div >
           <Dropdown
-          options={options}
-          selected={selectedOption}
-          onChange={setSelectedOption}
-          placeholder='Choose framework'
+            options={options}
+            selected={selectedOption}
+            onChange={setSelectedOption}
+            placeholder='Choose framework'
           />
           {selectedOption && <p>You Selected:{selectedOption}</p>}
+        </div>
+
+        {/* - **Build a Reusable Fully Dynamic tabs Component** */}
+        <h1>- **Build a Reusable Fully Dynamic tabs Component**</h1>
+        <div>
+          <Tab
+            tabs={tabsData}
+            defaultActiveIndex={0}
+            onTabChange={(index) => console.log(`Active tab index ${index}`)}
+            customStyles={{
+              activeTab: { backgroundColor: "green", color: 'white' },
+              header: { borderBottom: '2px solid black' }
+            }}
+          />
         </div>
       </div>
     </>
