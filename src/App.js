@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Button from './Components/Button/Button';
 import Input from './Components/Input/Input';
 import Toast from './Components/Toast/Toast';
 import Dropdown from './Components/DropDown/Dropdown';
 import Tab from './Components/Tab/Tab';
+import LightDarkToggle from './Components/LightDarkToggle/LightDarkToggle';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -28,61 +29,78 @@ function App() {
 
   //  Dynamic Input 
 
-  const handleSubmitButton = () => {
-    alert(`Email is ${email}`)
-  }
-  const handleCancelButton = () => {
-    setEmail('')
-  }
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    setEmailError(validateEmail(e.target.value) ? '' : "invalid Email address")
-  }
-  const validateEmail = (email) => {
-    return /\S+@\S+\.\S+/.test(email);
-  }
+  // const handleSubmitButton = () => {
+  //   alert(`Email is ${email}`)
+  // }
+  // const handleCancelButton = () => {
+  //   setEmail('')
+  // }
+  // const handleEmailChange = (e) => {
+  //   setEmail(e.target.value);
+  //   setEmailError(validateEmail(e.target.value) ? '' : "invalid Email address")
+  // }
+  // const validateEmail = (email) => {
+  //   return /\S+@\S+\.\S+/.test(email);
+  // }
 
   // Reusable Toast Component in React 
 
-  const [toast, setToast] = useState(null);
-  const showToast = (message, type) => {
-    setToast({ message, type })
-  }
-  const removeToast = () => {
-    setToast(null)
-  }
+  // const [toast, setToast] = useState(null);
+  // const showToast = (message, type) => {
+  //   setToast({ message, type })
+  // }
+  // const removeToast = () => {
+  //   setToast(null)
+  // }
 
   //  Custom Searchable Dropdown in React with Click-Outside Feature
-  const [selectedOption, setSelectedOption] = useState(null);
-  const options = ['react', 'nextjs', 'css']
+  // const [selectedOption, setSelectedOption] = useState(null);
+  // const options = ['react', 'nextjs', 'css']
 
 
   // - **Build a Reusable Fully Dynamic tabs Component**
 
-  const tabsData = [
-    {
-      label: "Home",
-      content: <p>This is home tab content</p>,
-      icon: "ho"
-    },
-    {
-      label: "Profile",
-      content: <p>This is profile tab content</p>,
-      icon: "pro"
-    },
-    {
-      label: "About",
-      content: <p>This is about tab content</p>,
-      icon: "ab"
+  // const tabsData = [
+  //   {
+  //     label: "Home",
+  //     content: <p>This is home tab content</p>,
+  //     icon: "ho"
+  //   },
+  //   {
+  //     label: "Profile",
+  //     content: <p>This is profile tab content</p>,
+  //     icon: "pro"
+  //   },
+  //   {
+  //     label: "About",
+  //     content: <p>This is about tab content</p>,
+  //     icon: "ab"
+  //   }
+  // ]
+
+  //   Light/Dark Mode Toggle Component 
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedMode = localStorage.getItem('dark-mode');
+    return savedMode ? JSON.parse(savedMode) : false
+  });
+  const handleDarkModeToggle = (enabled) => {
+    setIsDarkMode(enabled);
+    localStorage.setItem('dark-mode', JSON.stringify(enabled));
+  }
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add('dark-mode');
+    } else {
+      document.body.classList.remove('dark-mode')
     }
-  ]
+  })
   return (
     <>
       <div className="App">
         <h1> React Components</h1>
 
         {/* Dynamic Button Component */}
-        <h1>Dynamic Button Component</h1>
+        {/* <h1>Dynamic Button Component</h1>
         <div className="buttonFlex">
           <Button
             label='submit'
@@ -95,12 +113,12 @@ function App() {
             variant="secondary"
             onClick={handleCancelButton}
           />
-        </div>
+        </div> */}
         {/*End:  Dynamic Button Component */}
 
 
         {/* Custom Reusable Input Component */}
-        <h1>Custom Reusable Input Component</h1>
+        {/* <h1>Custom Reusable Input Component</h1>
         <div className='inputFlex'>
           <Input
             type='email'
@@ -110,11 +128,11 @@ function App() {
             errorMessage={emailError}
             customStyles={{ width: "300px" }}
           />
-        </div>
+        </div> */}
         {/*end Custom Reusable Input Component */}
 
         {/* Reusable Toast Component in React */}
-        <h1>Reusable Toast Component in React</h1>
+        {/* <h1>Reusable Toast Component in React</h1>
         <div>
           <div className="buttonFlex">
             <Button label='info'
@@ -137,10 +155,10 @@ function App() {
               />
             )
           }
-        </div>
+        </div> */}
 
         {/* Custom Searchable Dropdown in React with Click-Outside Feature */}
-        <h1>Custom Searchable Dropdown in React with Click-Outside Feature</h1>
+        {/* <h1>Custom Searchable Dropdown in React with Click-Outside Feature</h1>
         <div >
           <Dropdown
             options={options}
@@ -149,10 +167,10 @@ function App() {
             placeholder='Choose framework'
           />
           {selectedOption && <p>You Selected:{selectedOption}</p>}
-        </div>
+        </div> */}
 
         {/* - **Build a Reusable Fully Dynamic tabs Component** */}
-        <h1>- **Build a Reusable Fully Dynamic tabs Component**</h1>
+        {/* <h1>- **Build a Reusable Fully Dynamic tabs Component**</h1>
         <div>
           <Tab
             tabs={tabsData}
@@ -163,7 +181,23 @@ function App() {
               header: { borderBottom: '2px solid black' }
             }}
           />
+        </div> */}
+
+        {/* Implement a Light/Dark Mode Toggle Component */}
+        <h1>Implement a Light/Dark Mode Toggle Component</h1>
+        <div>
+          <h1>{isDarkMode ? 'Dark Mode Enabled' : 'Light Mode Enabled'}</h1>
+          <LightDarkToggle
+            label="Dark Mode"
+            initial={isDarkMode}
+            onToggle={handleDarkModeToggle}
+            onColor='#000'
+            offColor='#ccc'
+            size={'large'}
+          />
+          <p>Toggle to switch button dark and light mode</p>
         </div>
+
       </div>
     </>
   );

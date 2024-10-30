@@ -3,8 +3,7 @@ import './Tab.css'
 import { useState } from 'react'
 import { useEffect } from 'react';
 const Tab = ({
-    tabs, defaultActiveIndex = 0, onTabChange, customStyles
-}) => {
+    tabs, defaultActiveIndex = 0, onTabChange, customStyles}) => {
     const [activeIndex, setActiveIndex] = useState(defaultActiveIndex);
     const [loadedTabs, setLoadedTabs] = useState([defaultActiveIndex]);
 
@@ -12,7 +11,8 @@ const Tab = ({
         if (!loadedTabs.includes(activeIndex)) {
             setLoadedTabs([...loadedTabs, activeIndex])
         }
-    }, [activeIndex])
+    }, [activeIndex]);
+    
     const handleTabClick = (index) => {
         setActiveIndex(index);
         if (onTabChange) {
